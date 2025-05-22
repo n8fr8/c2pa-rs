@@ -92,12 +92,12 @@ release-android: release-android-arm64 release-android-x86_64
 
 release-android-arm64:
 	rustup target add aarch64-linux-android
-	RUSTFLAGS='-C link-arg=-s' cargo ndk -t arm64-v8a build --release 
+	RUSTFLAGS='-C link-arg=-s' cargo ndk -t arm64-v8a build --features android --release 
 	@$(call make_zip,$(TARGET_DIR)/aarch64-linux-android/release,aarch64-linux-android)
 
 release-android-x86_64:
 	rustup target add x86_64-linux-android
-	RUSTFLAGS='-C link-arg=-s' cargo ndk -t x86_64 build --release 
+	RUSTFLAGS='-C link-arg=-s' cargo ndk -t x86_64 build --features android --release 
 	@$(call make_zip,$(TARGET_DIR)/x86_64-linux-android/release,x86_64-linux-android)
 
 # make release
@@ -121,3 +121,6 @@ ifeq ($(ARCH), aarch64)
 release: release-linux-gnu-arm
 endif
 endif
+
+clean:
+	cargo clean
