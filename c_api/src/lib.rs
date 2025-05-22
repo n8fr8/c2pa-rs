@@ -17,6 +17,8 @@ mod error;
 #[cfg(feature = "json_api")]
 mod json_api;
 mod signer_info;
+#[cfg(feature = "android")]
+mod android;
 
 pub use c2pa::{
     AsyncSigner, Builder, Error as C2paError, Reader, Result as C2paResult, Signer, SigningAlg,
