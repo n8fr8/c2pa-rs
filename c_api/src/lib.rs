@@ -17,7 +17,7 @@ mod error;
 #[cfg(feature = "json_api")]
 mod json_api;
 mod signer_info;
-#[cfg(feature = "android")]
+#[cfg(target_os = "android")]
 mod android;
 
 pub use c2pa::{

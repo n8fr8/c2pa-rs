@@ -103,12 +103,12 @@ release-android: release-android-arm64 release-android-x86_64
 
 release-android-arm64: android-install-deps
 	rustup target add aarch64-linux-android
-	RUSTFLAGS='-C link-arg=-s' cargo ndk -t arm64-v8a build --features android --release 
+	RUSTFLAGS='-C link-arg=-s' cargo ndk -t arm64-v8a build --release 
 	@$(call make_zip,$(TARGET_DIR)/aarch64-linux-android/release,aarch64-linux-android)
 
 release-android-x86_64: android-install-deps
 	rustup target add x86_64-linux-android
-	RUSTFLAGS='-C link-arg=-s' cargo ndk -t x86_64 build --features android --release 
+	RUSTFLAGS='-C link-arg=-s' cargo ndk -t x86_64 build --release 
 	@$(call make_zip,$(TARGET_DIR)/x86_64-linux-android/release,x86_64-linux-android)
 
 cache/ndk/android-ndk-r26d: cache/ndk.zip

@@ -13,7 +13,6 @@ default = ["json_api", "openssl"]
 json_api = ["c2pa/v1_api"]
 openssl = ["c2pa/openssl"]
 rust_native_crypto = ["c2pa/rust_native_crypto"]
-android = ["jni"]
 
 [dependencies]
 tokio = { version = "1.36", features = ["rt-multi-thread","rt"] }
@@ -27,7 +26,9 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 thiserror = "1.0.64"
 zip = { version = "3.0.0", default-features = false, features = ["deflate"] }
-jni = { version = "0.21", optional = true }
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni = { version = "0.21", optional = false }
 
 [dev-dependencies]
 tempfile = "3.7.0"
