@@ -5,12 +5,12 @@ ifeq ($(OS),Windows_NT)
 	PLATFORM := win
 else
 	UNAME := $(shell uname)
-    ifeq ($(UNAME),Linux)
-        PLATFORM := linux
-    endif
-    ifeq ($(UNAME),Darwin)
-        PLATFORM := mac
-    endif
+	ifeq ($(UNAME),Linux)
+		PLATFORM := linux
+	endif
+	ifeq ($(UNAME),Darwin)
+		PLATFORM := mac
+	endif
 endif
 
 check-format:
@@ -22,7 +22,7 @@ clippy:
 	cargo clippy --features="file_io" --all-targets -- -D warnings
 
 test-local:
-	cargo test --features="file_io, fetch_remote_manifests, add_thumbnails" --all-targets
+	cargo test --features="file_io, fetch_remote_manifests, add_thumbnails, v1_api" --all-targets
 # Builds and views documentation
 
 test-wasm:
@@ -36,7 +36,7 @@ test-wasi:
 ifeq ($(PLATFORM),mac)
 	$(eval CC := /opt/homebrew/opt/llvm/bin/clang)
 endif
-	CC=$(CC) CARGO_TARGET_WASM32_WASIP2_RUNNER="wasmtime -S cli -S http --dir ." cargo +nightly test --target wasm32-wasip2 -p c2pa -p c2patool --all-features
+	CC=$(CC) CARGO_TARGET_WASM32_WASIP2_RUNNER="wasmtime -S cli -S http --dir ." cargo +nightly test --target wasm32-wasip2 -p c2pa --no-default-features --features="rust_native_crypto, file_io, fetch_remote_manifests, add_thumbnails, v1_api"
 	rm -r sdk/Users
 
 # Full local validation, build and test all features including wasm
